@@ -183,6 +183,10 @@
   #define  DEFAULT_LISTEN_IDLE_US 1000000
 #endif
 
+#ifndef SPI_FREQ
+  #define SPI_FREQ  8000000
+#endif
+
 class RFM69 {
   public:
     static uint8_t DATA[RF69_MAX_DATA_LEN+1]; // RX/TX payload buffer, including end of string NULL char

@@ -117,10 +117,12 @@ bool RFM69::initialize(uint8_t freqBand, uint16_t nodeID, uint8_t networkID)
   //_spi->begin(14,12,13,15); //SPI2  (SCK,MISO,MOSI,CS) 
 #else
   _spi->begin();
-#endif  
+#endif
 
-#ifdef SPI_HAS_TRANSACTION
-  _settings = SPISettings(8000000, MSBFIRST, SPI_MODE0);
+#if defined(SPI_HAS_TRANSACTION)
+  _settings = SPISettings(SPI_FREQ, MSBFIRST, SPI_MODE0);
+#elif defined(SPI_CLOCK_DIV)
+  _spi->setClockDivider(SPI_CLOCK_DIV);
 #endif
 
   uint32_t start = millis();
